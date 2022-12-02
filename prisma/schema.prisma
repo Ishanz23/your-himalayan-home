@@ -14,7 +14,7 @@ model User {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   firstname   String
-  lastName    String
+  lastname    String
   sex         String
   dob         DateTime
   nationality String
