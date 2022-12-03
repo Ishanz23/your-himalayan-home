@@ -13,6 +13,97 @@ async function seed() {
 
   const hashedPassword = await bcrypt.hash("racheliscool", 10);
 
+  const foodPlan = await prisma.foodPlan.createMany({
+    data: [
+      {
+        name: "CP",
+        nonVeg: true,
+        tariff: 150,
+      },
+      {
+        name: "CP",
+        nonVeg: false,
+        tariff: 130,
+      },
+      {
+        name: "AP",
+        nonVeg: true,
+        tariff: 400,
+      },
+      {
+        name: "AP",
+        nonVeg: false,
+        tariff: 350,
+      },
+      {
+        name: "EP",
+        tariff: 0,
+      },
+      {
+        name: "AMD",
+        nonVeg: true,
+        tariff: 500,
+      },
+      {
+        name: "AMD",
+        nonVeg: false,
+        tariff: 450,
+      },
+    ],
+  });
+
+  await prisma.amenity.createMany({
+    data: [
+      { name: "WiFi", description: "Free high speed WiFi available" },
+      { name: "Power Backup", description: "24/7 power" },
+      {
+        name: "Pickup/Drop",
+        description: "Free pickup and drop to Private volvo stand",
+      },
+      {
+        name: "Guided Tours",
+        description: "Guided customised tours at extra cost",
+      },
+    ],
+  });
+
+  await prisma.feature.createMany({
+    data: [
+      {
+        name: "Heater",
+        description: "Room heater available at 100/- per night",
+      },
+      {
+        name: "Work-Desk",
+      },
+      {
+        name: "Mountain view",
+      },
+      {
+        name: "24/7 Hot water",
+      },
+    ],
+  });
+
+  await prisma.location.create({
+    data: {
+      name: "Manali",
+      altitude: 6530,
+      lat: 23.5,
+      long: 25.5,
+      description:
+        "A bustling Himachali town located at the northern half of Kullu Valley. It is also the gateway of Ladakh from the Himachal Side",
+      state: "Himachal Pradesh",
+    },
+  });
+
+  await prisma.homestay.create({
+    data: {
+      name: "Your Himalayan Home (Manali)",
+      address: "123, Siyal Road, Upper Nasogi, Manali, Himachal: 175103",
+      locationName: "Manali",
+    },
+  });
   console.log(`Database has been seeded. 🌱`);
 }
 

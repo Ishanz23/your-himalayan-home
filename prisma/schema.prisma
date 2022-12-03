@@ -33,8 +33,8 @@ model Guest {
   id           String         @id @default(cuid())
   firstname    String
   lastName     String
-  mobile       String?
-  email        String?
+  mobile       String?        @unique
+  email        String?        @unique
   RoomReserved RoomReserved[]
 }
 
@@ -43,6 +43,7 @@ model Location {
   name        String     @unique
   lat         Float
   long        Float
+  state       String
   altitude    Int
   description String
   Homestay    Homestay[]
@@ -88,9 +89,12 @@ model Rate {
 
 model FoodPlan {
   id           String         @id @default(cuid())
-  type         String
+  name         String
   tariff       Decimal
+  nonVeg       Boolean?
   RoomReserved RoomReserved[]
+
+  @@unique([name, nonVeg])
 }
 
 model Reservation {
@@ -122,14 +126,14 @@ model RoomReserved {
 
 model Amenity {
   id                String              @id @default(cuid())
-  name              String
+  name              String              @unique
   description       String?
   HomestayAmenities HomestayAmenities[]
 }
 
 model Feature {
   id           String         @id @default(cuid())
-  name         String
+  name         String         @unique
   description  String?
   RoomFeatures RoomFeatures[]
 }
