@@ -13,7 +13,25 @@ async function seed() {
 
   const hashedPassword = await bcrypt.hash("racheliscool", 10);
 
-  const foodPlan = await prisma.foodPlan.createMany({
+  const user = await prisma.user.create({
+    data: {
+      email,
+      password: {
+        create: {
+          hash: hashedPassword,
+        },
+      },
+      dob: new Date("1992-03-28"),
+      mobile: "9876543210",
+      firstname: "Rachel",
+      lastname: "Reynolds",
+      nationality: "Indian",
+      sex: "F",
+      address: "23, Apartment Name, Road Name, City",
+    },
+  });
+
+  await prisma.foodPlan.createMany({
     data: [
       {
         name: "CP",
